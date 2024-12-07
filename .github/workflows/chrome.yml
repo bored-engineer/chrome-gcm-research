@@ -2,7 +2,7 @@ name: Chrome
 on:
   workflow_dispatch:
     inputs:
-      extension-id:
+      extension:
         description: 'The ID of the Chrome extension to install'
         required: true
 jobs:
@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - run: |
-          ls -lah /opt/google/chrome/extensions /usr/share/google-chrome/extensions/
+          mkdir -p /usr/share/google-chrome/extensions/
+          echo '{ "external_update_url": "https://clients2.google.com/service/update2/crx" }' > /usr/share/google-chrome/extensions/${{ github.event.inputs.extension }}.json
       - run: >-
           xvfb-run
           --auto-servernum
