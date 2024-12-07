@@ -7,12 +7,11 @@ on:
         required: true
 jobs:
   chrome:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - run: export DISPLAY=':99.0'
       - run: Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
       - run: |
-          timeout 30s google-chrome
+          DISPLAY=':99.0' timeout 30s google-chrome
             --log-net-log=chrome-net-export-log.json
             --net-log-capture-mode=Everything
             https://example.com || true
