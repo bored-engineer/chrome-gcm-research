@@ -9,7 +9,7 @@ jobs:
   chrome:
     runs-on: ubuntu-24.04
     steps:
-      - run: |
+      - run: >
           timeout 30s xvfb-run google-chrome
             --disable-gpu
             --no-sandbox
