@@ -9,15 +9,15 @@ jobs:
   chrome:
     runs-on: ubuntu-24.04
     steps:
-      - run: >
+      - run: >-
           timeout 30s xvfb-run
-            --auto-servernum
-            --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR"
-            google-chrome
-              --disable-gpu
-              --no-sandbox
-              --disable-setuid-sandbox
-              --log-net-log=chrome-net-export-log.json
-              --net-log-capture-mode=Everything
-              https://example.com || true
+          --auto-servernum
+          --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR"
+          google-chrome
+          --disable-gpu
+          --no-sandbox
+          --disable-setuid-sandbox
+          --log-net-log=chrome-net-export-log.json
+          --net-log-capture-mode=Everything
+          https://example.com || true
      
