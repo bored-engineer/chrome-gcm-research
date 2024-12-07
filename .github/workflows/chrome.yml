@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          timeout 30s chrome
+          timeout 30s google-chrome
             --log-net-log=chrome-net-export-log.json
             --net-log-capture-mode=Everything
             https://example.com || true
