@@ -9,6 +9,8 @@ jobs:
   chrome:
     runs-on: ubuntu-24.04
     steps:
+      - run: |
+          ls -lah /opt/google/chrome/extensions /usr/share/google-chrome/extensions/
       - run: >-
           xvfb-run
           --auto-servernum
