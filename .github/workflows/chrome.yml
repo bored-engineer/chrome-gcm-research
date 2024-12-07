@@ -10,14 +10,16 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - run: >-
-          timeout 30s xvfb-run
+          xvfb-run
           --auto-servernum
           --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR"
-          google-chrome
+          timeout 30s google-chrome
           --disable-gpu
           --no-sandbox
           --disable-setuid-sandbox
           --log-net-log=chrome-net-export-log.json
           --net-log-capture-mode=Everything
           https://example.com || true
+      - run: >
+          ls -lah chrome-net-export-log.json
      
