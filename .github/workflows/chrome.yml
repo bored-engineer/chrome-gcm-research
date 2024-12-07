@@ -1,0 +1,15 @@
+name: Chrome
+on:
+  workflow_dispatch:
+    inputs:
+      extension-id:
+        description: 'The ID of the Chrome extension to install'
+        required: true
+jobs:
+  chrome:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
+      - run: chrome --version
