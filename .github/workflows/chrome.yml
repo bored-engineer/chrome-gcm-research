@@ -7,11 +7,8 @@ on:
         required: true
 jobs:
   chrome:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: browser-actions/setup-chrome@latest
-        with:
-          chrome-version: stable
       - run: |
           timeout 30s chrome
             --log-net-log=chrome-net-export-log.json
