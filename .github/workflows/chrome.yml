@@ -9,9 +9,11 @@ jobs:
   chrome:
     runs-on: ubuntu-24.04
     steps:
-      - run: Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
       - run: |
-          DISPLAY=':99.0' timeout 30s google-chrome
+          timeout 30s xvfb-run google-chrome
+            --disable-gpu
+            --no-sandbox
+            --disable-setuid-sandbox
             --log-net-log=chrome-net-export-log.json
             --net-log-capture-mode=Everything
             https://example.com || true
