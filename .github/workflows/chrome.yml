@@ -9,21 +9,34 @@ jobs:
   chrome:
     runs-on: ubuntu-24.04
     steps:
-      - run: |
+      - name: Restore Chrome User Data Directory
+        uses: actions/cache/restore@v4
+        with:
+          path: chrome-user-data
+          key: ${{ github.event.inputs.extension }}
+      - name: Force Extension Installation
+        run: |
           mkdir -p /usr/share/google-chrome/extensions/
           echo '{ "external_update_url": "https://clients2.google.com/service/update2/crx" }' > /usr/share/google-chrome/extensions/${{ github.event.inputs.extension }}.json
       - run: >-
           xvfb-run
           --auto-servernum
           --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR"
-          timeout 30s google-chrome
+          timeout 15s google-chrome
           --disable-gpu
           --no-sandbox
           --disable-setuid-sandbox
           --log-net-log=chrome-net-export-log.json
           --net-log-capture-mode=Everything
+          --user-data-dir=chrome-user-data
           https://example.com || true
-      - uses: actions/upload-artifact@v4
+      - name: Cache Chrome User Data Directory
+        uses: actions/cache/save@v4
+        with:
+          path: chrome-user-data
+          key: ${{ github.event.inputs.extension }}
+      - name: Upload chrome://net-export Log
+        uses: actions/upload-artifact@v4
         with:
           name: chrome-net-export-log
           compression-level: 9
