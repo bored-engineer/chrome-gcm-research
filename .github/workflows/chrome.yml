@@ -23,6 +23,8 @@ jobs:
           --log-net-log=chrome-net-export-log.json
           --net-log-capture-mode=Everything
           https://example.com || true
-      - run: >
-          ls -lah chrome-net-export-log.json
-     
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chrome-net-export-log
+          compression-level: 9
+          path: chrome-net-export-log.json
