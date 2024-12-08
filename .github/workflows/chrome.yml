@@ -14,6 +14,9 @@ jobs:
         with:
           path: chrome-user-data
           key: ${{ github.event.inputs.extension }}
+      - name: Reset Chrome User Data Directory
+        run: |
+          rm chrome-user-data/SingletonLock || true
       - name: Force Extension Installation
         run: |
           mkdir -p /usr/share/google-chrome/extensions/
@@ -40,5 +43,4 @@ jobs:
       - name: Delete Chrome User Data Cache
         run: |
           gh extension install actions/gh-actions-cache
-          set +e
-          gh actions-cache delete ${{ github.event.inputs.extension }}
+          gh actions-cache delete ${{ github.event.inputs.extension }} || true
