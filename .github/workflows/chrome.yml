@@ -8,6 +8,8 @@ on:
 jobs:
   chrome:
     runs-on: ubuntu-24.04
+    permissions:
+      actions: write
     steps:
       - name: Cache Chrome User Data Directory
         uses: actions/cache@v4
