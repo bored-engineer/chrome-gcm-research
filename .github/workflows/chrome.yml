@@ -18,7 +18,8 @@ jobs:
         run: |
           mkdir -p /usr/share/google-chrome/extensions/
           echo '{ "external_update_url": "https://clients2.google.com/service/update2/crx" }' > /usr/share/google-chrome/extensions/${{ github.event.inputs.extension }}.json
-      - run: >-
+      - name: Run Google Chrome
+        run: >-
           xvfb-run
           --auto-servernum
           --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR"
