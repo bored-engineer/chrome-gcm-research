@@ -9,8 +9,8 @@ jobs:
   chrome:
     runs-on: ubuntu-24.04
     steps:
-      - name: Restore Chrome User Data Directory
-        uses: actions/cache/restore@v4
+      - name: Cache Chrome User Data Directory
+        uses: actions/cache@v4
         with:
           path: chrome-user-data
           key: ${{ github.event.inputs.extension }}
@@ -31,14 +31,14 @@ jobs:
           --net-log-capture-mode=Everything
           --user-data-dir=chrome-user-data
           https://example.com || true
-      - name: Cache Chrome User Data Directory
-        uses: actions/cache/save@v4
-        with:
-          path: chrome-user-data
-          key: ${{ github.event.inputs.extension }}
       - name: Upload chrome://net-export Log
         uses: actions/upload-artifact@v4
         with:
           name: chrome-net-export-log
           compression-level: 9
           path: chrome-net-export-log.json
+      - name: Delete Chrome User Data Cache
+        run: |
+          gh extension install actions/gh-actions-cache
+          set +e
+          gh actions-cache delete ${{ github.event.inputs.extension }}
